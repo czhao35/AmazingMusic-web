@@ -4,6 +4,7 @@
     style= "margin: auto;"
     class="grey lighten-3"
   >
+  <div style= "height: 200px;"></div>
     <v-card>
       <v-container
         fluid

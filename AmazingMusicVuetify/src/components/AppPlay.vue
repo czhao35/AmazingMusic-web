@@ -6,13 +6,6 @@
       height="200px"
       src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
     >
-      <v-container fill-height fluid>
-        <v-layout fill-height>
-          <v-flex align-end flexbox>
-            <span class="headline">Top 10 Australian beaches</span>
-          </v-flex>
-        </v-layout>
-      </v-container>
     </v-img>
     <v-card-title>
       <div>
