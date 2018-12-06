@@ -29,7 +29,8 @@
 <div id="main">
 	<div class="left-menu">
 		<div class="top-manu">
-			<div class="menu-item" v-bind:class="selectedmenu==index?'active':''" v-for="(menu,index) in munus" @click="switch_menu(index)">
+			<div class="menu-item" v-bind:class="selectedmenu==index?'active':''" v-for="(menu,index) in munus"
+			 @click="switch_menu(index)">
 				<div><i class="iconfont" v-bind:class="menu.icon" style="font-size: 2rem; color:white;"></i></div>
 				<div style="color:white;">${menu.name}</div>
 			</div>
@@ -45,33 +46,44 @@
 				<div class="quarter" v-for="(music,index)  in musics" style="padding:0 8px;margin-bottom: 16px;">
 					<div class="card" style="width:100%; height:200px">
 						<div>
-							<div class="rounded" style="background:url(../static/images/82fLDu4.jpg) ;">
+							<div class="rounded" style="background:#bdbdbd; height: 200px;">
 								<div class="padded" style="padding-top: 20px;">
-									<div class="music-name"><i class="fa fa-music" aria-hidden="true"></i><span style="margin-left: 12px;">${music.audio_title}</span></div>
+									<div class="music-name"><i class="fa fa-music" aria-hidden="true"></i><span
+										style="margin-left: 12px;">${music.audio_title}</span></div>
 									<div class="face-info">
-										<div class="info-item"><i class="fa fa-user" aria-hidden="true"></i><span class="info-lable">Create User</span><span class="info-value">${music.audio_author}</span></div>
-										<div class="info-item"><i class="fa fa-calendar" aria-hidden="true"></i><span class="info-lable">Create Time</span><span class="info-value">${music.create_time}</span></div>
+										<div class="info-item"><i class="fa fa-user" aria-hidden="true"></i><span
+											class="info-lable">Create User</span><span class="info-value">${music.audio_author}</span></div>
+										<div class="info-item"><i class="fa fa-calendar" aria-hidden="true"></i><span
+											class="info-lable">Create Time</span><span class="info-value">${music.create_time}</span></div>
 									</div>
 								</div>
 							</div>
-							<div class="black  rounded">
+							<div>
 								<div class="music-player">
 									<div class="info">
 										<div class="left" style="padding-top: 12px;">
-											<i style="font-size: 1.6rem;cursor: pointer;" class="iconfont" v-bind:class="music.collected==1?'icon-shoucang1':'icon-shoucang'" v-on:click="toggleCollect" v-bind:data-id="music.audio_id" v-bind:data-collected="music.collected"></i>
+											<i style="font-size: 1.6rem;cursor: pointer;" class="iconfont"
+											v-bind:class="music.collected==1?'icon-shoucang1':'icon-shoucang'"
+											 v-on:click="toggleCollect" v-bind:data-id="music.audio_id"
+											 v-bind:data-collected="music.collected"></i>
 										</div>
 										<div class="center">
 											<div class="center-info">${music.audio_title}</div>
 											<div class="center-info">${music.audio_author}</div>
 										</div>
 										<div class="right" style="padding-top: 12px;">
-											<i style="font-size: 1.6rem;cursor: pointer;" class="iconfont icon-modify" v-on:click="edit" v-bind:data-index="index"></i>
+											<i style="font-size: 1.6rem;cursor: pointer;" class="iconfont icon-modify"
+											v-on:click="edit" v-bind:data-index="index"></i>
 										</div>
-										<div class="progress jp-seek-bar" v-on:click="seekprogress"> <div class="jp-play-bar" v-bind:style="'width:'+(playing_index==index?currProgress:0) +'%'"></div></div>
+										<div class="progress jp-seek-bar" v-on:click="seekprogress"> <div class="jp-play-bar"
+											 v-bind:style="'width:'+(playing_index==index?currProgress:0) +'%'"></div></div>
 									</div>
-									<div class="controls" style="padding-top: 16px;">
-										<div class="current jp-current-time"><span style="float:left;margin-left: 18px;">${playing_index==index?currtime:'00:00'}</span>
-											<i class="jp-play" v-bind:class="(playing_index==index&&playing)?'icon-pause':'icon-play'" title="play" v-on:click="togglePlay" v-bind:data-index="index" style="float: right;margin-right: 18px;width:34px;height:38px;margin-top: 8px;border: none;cursor: pointer;"></i>
+									<div class="controls" style="padding-top: 16px; background:white;">
+										<div class="current jp-current-time">
+											<span style="float:left;margin-left: 18px; color:black;">${playing_index==index?currtime:'00:00'}</span>
+											<i class="jp-play" v-bind:class="(playing_index==index&&playing)?'icon-pause':'icon-play'"
+											title="play" v-on:click="togglePlay" v-bind:data-index="index"
+											style="float: right;margin-right: 18px;width:34px;height:38px;margin-top: 8px;border: none;cursor: pointer;"></i>
 										</div>
 
 									</div>
@@ -96,7 +108,8 @@
 							<div class="nodata">
 								<div><i class="iconfont icon-cdcd23" style="font-size: 6rem;"></i></div>
 								<div style="color:#666666">no music uploaded</div>
-								<div style="margin-top: 12px;" v-on:click="openUpload"><button><i class="iconfont icon-cloudupload"></i><span style="margin-left: 8px;">upload</span></button></div>
+								<div style="margin-top: 12px;" v-on:click="openUpload"><button><i
+									class="iconfont icon-cloudupload"></i><span style="margin-left: 8px;">upload</span></button></div>
 							</div>
 						</div>
 						<div v-if="my_musics.length>0" class="container">
@@ -107,9 +120,10 @@
 											<div style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;padding-left: 8px;max-width:250px;word-break:break-all;">${mymusic.audio_title}</div>
 										</div>
 										<div class="action-container">
-											<div class="action-item"><i class="iconfont icon-069delete" v-on:click="delete_my" v-bind:data-id='mymusic.audio_id'></i></div>
-											<div class="action-item"><i class="iconfont icon-modify" v-on:click="edit" v-bind:data-index='index'></i></div>
-											<div class="action-item"><i class="iconfont icon-play1" v-on:click="play" v-bind:data-index='index'></i></div>
+											<div class="action-item"><i class="iconfont icon-069delete" v-on:click="delete_my"
+												v-bind:data-id='mymusic.audio_id'></i></div>
+											<div class="action-item"><i class="iconfont icon-modify" v-on:click="edit"
+												v-bind:data-index='index'></i></div>
 										</div>
 									</div>
 								</a>
@@ -126,7 +140,6 @@
 							<div class="nodata">
 								<div><i class="iconfont icon-cdcd23" style="font-size: 6rem;"></i></div>
 								<div style="color:#666666">no music collected</div>
-								<div style="margin-top: 12px;"><button><span style="margin-left: 8px;">go square</span></button></div>
 							</div>
 						</div>
 						<div v-if="mycollections.length>0" class="container">
@@ -138,9 +151,12 @@
 											<div style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;padding-left: 8px;max-width:250px;word-break:break-all;">${mycollection.audio_title}</div>
 										</div>
 										<div class="action-container">
-											<div class="action-item"><i class="iconfont icon-069delete" v-bind:data-id='mycollection.audio_id' v-on:click="deletecoll"></i></div>
-											<div class="action-item"><i class="iconfont icon-modify" v-on:click="editc" v-bind:data-index='index'></i></div>
-											<div class="action-item"><i class="iconfont icon-play1" v-on:click="playcollection" v-bind:data-index='index'></i></div>
+											<div class="action-item"><i class="iconfont icon-069delete"
+												v-bind:data-id='mycollection.audio_id' v-on:click="deletecoll"></i></div>
+											<div class="action-item"><i class="iconfont icon-modify"
+												v-on:click="editc" v-bind:data-index='index'></i></div>
+											<div class="action-item"><i class="iconfont icon-play1"
+												v-on:click="playcollection" v-bind:data-index='index'></i></div>
 										</div>
 									</div>
 								</a>
@@ -160,7 +176,8 @@
 
 	</div>
 	<div class="bottom-nav">
-		<div class="menu-item" v-bind:class="selectedmenu==index?'active':''" v-for="(menu,index) in munus" v-on:click.stop.prevent="switch_menu(index)">
+		<div class="menu-item" v-bind:class="selectedmenu==index?'active':''" v-for="(menu,index) in munus"
+		v-on:click.stop.prevent="switch_menu(index)">
 			<div style="display: table;text-align: center;width: 60px;margin: 0 auto;height: 10vh;">
 				<div style="display: table-cell;vertical-align: middle;">
 					<div><i class="iconfont" v-bind:class="menu.icon" style="font-size: 2rem;"></i></div>
@@ -171,7 +188,8 @@
 	</div>
 	<div v-show="showedit" class="edit-outer">
 		<div class="edit-inner">
-			<div class="close"><i class="iconfont icon-guanbi" style="font-size: 2rem;cursor: pointer;" v-on:click="hide_edit"></i></div>
+			<div class="close"><i class="iconfont icon-guanbi" style="font-size: 2rem;cursor: pointer;"
+				v-on:click="hide_edit"></i></div>
 			<div id="trans-audio">
 
 				<div class="slide-item">
@@ -187,7 +205,8 @@
 					<div class="slider" id="slide3"></div>
 				</div>
 				<div style="text-align: center;">
-					<button class="layui-btn layui-btn-radius layui-btn-normal" v-on:click="trans">submit and play</button>
+					<button class="layui-btn layui-btn-radius layui-btn-normal"
+					v-on:click="trans">submit and play</button>
 				</div>
 
 			</div>
