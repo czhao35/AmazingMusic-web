@@ -31,30 +31,34 @@
 		<div class="top-manu">
 			<div class="menu-item" v-bind:class="selectedmenu==index?'active':''" v-for="(menu,index) in munus"
 			 @click="switch_menu(index)">
-				<div><i class="iconfont" v-bind:class="menu.icon" style="font-size: 2rem; color:white;"></i></div>
-				<div style="color:white;">${menu.name}</div>
+				<div><i class="iconfont" v-bind:class="menu.icon" style="font-size: 2rem;"></i></div>
+				<div>${menu.name}</div>
 			</div>
 		</div>
 		<div class="menu-item bottom" @click="logout">
 			<div><i class="iconfont icon-logout" style="font-size: 2rem; color:white;"></i></div>
-			<div style="color:white;">logout</div>
+			<div>logout</div>
 		</div>
 	</div>
 	<div class="inner-frame">
-		<div id="square-container" v-show="selectedmenu==0">
+		<div id="square-container" style="padding-top: 20px" v-show="selectedmenu==0">
 			<div class="container" id="playlist">
+				<h2 style="padding-left:40px;">Square</h2>
+				<hr/>
 				<div class="quarter" v-for="(music,index)  in musics" style="padding:0 8px;margin-bottom: 16px;">
 					<div class="card" style="width:100%; height:200px">
 						<div>
-							<div class="rounded" style="background:#bdbdbd; height: 200px;">
+							<div class="rounded" style="background:#677886; height: 200px;">
 								<div class="padded" style="padding-top: 20px;">
 									<div class="music-name"><i class="fa fa-music" aria-hidden="true"></i><span
 										style="margin-left: 12px;">${music.audio_title}</span></div>
+										<hr/>
 									<div class="face-info">
-										<div class="info-item"><i class="fa fa-user" aria-hidden="true"></i><span
-											class="info-lable">Create User</span><span class="info-value">${music.audio_author}</span></div>
-										<div class="info-item"><i class="fa fa-calendar" aria-hidden="true"></i><span
-											class="info-lable">Create Time</span><span class="info-value">${music.create_time}</span></div>
+										<div class="info-item"><span class="info-value">
+											<i class="fa fa-user" aria-hidden="true"></i> ${music.audio_author}</span></div>
+										<div class="info-item"><span
+											class="info-value">
+											<i class="fa fa-calendar" aria-hidden="true"></i> ${music.create_time}</span></div>
 									</div>
 								</div>
 							</div>
@@ -97,6 +101,8 @@
 			</div>
 		</div>
 		<div id="square-container" v-show="selectedmenu==1">
+			<h2 style="padding-left:40px; padding-top: 20px;">My Suff</h2>
+			<hr/>
 			<div class="container">
 				<div class="top-tab">
 					<div class="tab-item" v-bind:class="tabindex==0?'active':''" v-on:click="switchTab(0)">My Music</div>
@@ -108,7 +114,7 @@
 							<div class="nodata">
 								<div><i class="iconfont icon-cdcd23" style="font-size: 6rem;"></i></div>
 								<div style="color:#666666">no music uploaded</div>
-								<div style="margin-top: 12px;" v-on:click="openUpload"><button><i
+								<div style="margin-top: 12px;" v-on:click="openUpload"><button class="layui-btn layui-btn-radius layui-btn-normal"><i
 									class="iconfont icon-cloudupload"></i><span style="margin-left: 8px;">upload</span></button></div>
 							</div>
 						</div>
