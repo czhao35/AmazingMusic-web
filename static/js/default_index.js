@@ -205,7 +205,7 @@ var app = function() {
 			if(self.timer) {
 				window.clearInterval(self.timer);
 			}
-			self.timer = setInterval(function() {				
+			self.timer = setInterval(function() {
 				var c = parseInt(self.audio.currentTime);
 				var m = parseInt(c / 60);
 				var s = c % 60;
