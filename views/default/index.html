@@ -11,14 +11,14 @@
 	var toggle_collect_url = "{{=URL('api', 'toggle_collection', user_signature=True)}}";
 	var load_audio_info_url = "{{=URL('api', 'load_audio_info', user_signature=True)}}";
 	var trans_audio_url = "{{=URL('api', 'trans_audio', user_signature=True)}}";
-	
+
 	if(!is_logged_in){
 		window.location.href = "./user/login?_next=/amazingmusic/default/index"
 	}
 
 	if(parent.layer) {
 		parent.APP.loadMyMusic();
-		var index = parent.layer.getFrameIndex(window.name); 
+		var index = parent.layer.getFrameIndex(window.name);
 		parent.layer.close(index);
 	}
 </script>
@@ -30,13 +30,13 @@
 	<div class="left-menu">
 		<div class="top-manu">
 			<div class="menu-item" v-bind:class="selectedmenu==index?'active':''" v-for="(menu,index) in munus" @click="switch_menu(index)">
-				<div><i class="iconfont" v-bind:class="menu.icon" style="font-size: 2rem;"></i></div>
-				<div>${menu.name}</div>
+				<div><i class="iconfont" v-bind:class="menu.icon" style="font-size: 2rem; color:white;"></i></div>
+				<div style="color:white;">${menu.name}</div>
 			</div>
 		</div>
 		<div class="menu-item bottom" @click="logout">
-			<div><i class="iconfont icon-logout" style="font-size: 2rem;"></i></div>
-			<div>logout</div>
+			<div><i class="iconfont icon-logout" style="font-size: 2rem; color:white;"></i></div>
+			<div style="color:white;">logout</div>
 		</div>
 	</div>
 	<div class="inner-frame">

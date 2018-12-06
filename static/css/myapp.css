@@ -107,7 +107,7 @@ main {
 .left-menu {
 	width: 80px;
 	height: 100vh;
-	background: #C9CABB;
+	background: rgb(60, 76, 89);
 	text-align: center;
 }
 
@@ -363,7 +363,7 @@ main {
 }
 
 .form-group input[type=submit]{
-	
+
 }
 
 .layui-layer-iframe{
