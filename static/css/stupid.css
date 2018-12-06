@@ -96,7 +96,7 @@ input:invalid, input.error, textarea:invalid, textarea.error {background: #ffdfd
   .twothirds {width:66.66%; margin-right:-13.33px}
   label.quarter:not(.compressible).right, label.half:not(.compressible).right, label.threequarters:not(.compressible).right   {float:left; text-align:left}
 }
-@media all and (max-width:599px) {
+@media all and (max-width:749px) {
   .quarter:not(.compressible), .half:not(.compressible), .third:not(.compressible), .twothirds:not(.compressible), .threequarters:not(.compressible) {width:100%;}
   label.quarter:not(.compressible).right, label.half:not(.compressible).right, label.threequarters:not(.compressible).right,
   label.third:not(.compressible).right, label.twothirds:not(.compressible).right   {float:left; text-align:left}
