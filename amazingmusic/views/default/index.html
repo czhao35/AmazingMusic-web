@@ -1,0 +1,199 @@
+{{extend 'layout.html'}} {{block head}}
+<title>Amazing Music</title>
+<script src="{{=URL('static', 'js/vue.js')}}"></script>
+<script>
+	var is_logged_in = {{ = 'false' if auth.user is None else 'true' }};
+	var load_music_url = "{{=URL('api', 'load_music', user_signature=True)}}";
+	var toggle_collect_url = "{{=URL('api', 'toggle_collection', user_signature=True)}}";
+	var load_my_music_url = "{{=URL('api', 'load_my_music', user_signature=True)}}";
+	var delete_my_music_url = "{{=URL('api', 'delete_my_music', user_signature=True)}}";
+	var load_collection_url = "{{=URL('api', 'load_collection', user_signature=True)}}";
+	var toggle_collect_url = "{{=URL('api', 'toggle_collection', user_signature=True)}}";
+	var load_audio_info_url = "{{=URL('api', 'load_audio_info', user_signature=True)}}";
+	var trans_audio_url = "{{=URL('api', 'trans_audio', user_signature=True)}}";
+	
+	if(!is_logged_in){
+		window.location.href = "./user/login?_next=/amazingmusic/default/index"
+	}
+
+	if(parent.layer) {
+		parent.APP.loadMyMusic();
+		var index = parent.layer.getFrameIndex(window.name); 
+		parent.layer.close(index);
+	}
+</script>
+<link rel="stylesheet" href="{{=URL('static', 'layui/css/layui.css')}}" />
+<link rel="stylesheet" href="{{=URL('static', 'css/player.css')}}" />
+<link rel="stylesheet" href="//at.alicdn.com/t/font_934303_omrhu395odn.css" /> {{end}}
+
+<div id="main">
+	<div class="left-menu">
+		<div class="top-manu">
+			<div class="menu-item" v-bind:class="selectedmenu==index?'active':''" v-for="(menu,index) in munus" @click="switch_menu(index)">
+				<div><i class="iconfont" v-bind:class="menu.icon" style="font-size: 2rem;"></i></div>
+				<div>${menu.name}</div>
+			</div>
+		</div>
+		<div class="menu-item bottom" @click="logout">
+			<div><i class="iconfont icon-logout" style="font-size: 2rem;"></i></div>
+			<div>logout</div>
+		</div>
+	</div>
+	<div class="inner-frame">
+		<div id="square-container" v-show="selectedmenu==0">
+			<div class="container" id="playlist">
+				<div class="quarter" v-for="(music,index)  in musics" style="padding:0 8px;margin-bottom: 16px;">
+					<div class="card" style="width:100%; height:200px">
+						<div>
+							<div class="rounded" style="background:url(../static/images/82fLDu4.jpg) ;">
+								<div class="padded" style="padding-top: 20px;">
+									<div class="music-name"><i class="fa fa-music" aria-hidden="true"></i><span style="margin-left: 12px;">${music.audio_title}</span></div>
+									<div class="face-info">
+										<div class="info-item"><i class="fa fa-user" aria-hidden="true"></i><span class="info-lable">Create User</span><span class="info-value">${music.audio_author}</span></div>
+										<div class="info-item"><i class="fa fa-calendar" aria-hidden="true"></i><span class="info-lable">Create Time</span><span class="info-value">${music.create_time}</span></div>
+									</div>
+								</div>
+							</div>
+							<div class="black  rounded">
+								<div class="music-player">
+									<div class="info">
+										<div class="left" style="padding-top: 12px;">
+											<i style="font-size: 1.6rem;cursor: pointer;" class="iconfont" v-bind:class="music.collected==1?'icon-shoucang1':'icon-shoucang'" v-on:click="toggleCollect" v-bind:data-id="music.audio_id" v-bind:data-collected="music.collected"></i>
+										</div>
+										<div class="center">
+											<div class="center-info">${music.audio_title}</div>
+											<div class="center-info">${music.audio_author}</div>
+										</div>
+										<div class="right" style="padding-top: 12px;">
+											<i style="font-size: 1.6rem;cursor: pointer;" class="iconfont icon-modify" v-on:click="edit" v-bind:data-index="index"></i>
+										</div>
+										<div class="progress jp-seek-bar" v-on:click="seekprogress"> <div class="jp-play-bar" v-bind:style="'width:'+(playing_index==index?currProgress:0) +'%'"></div></div>
+									</div>
+									<div class="controls" style="padding-top: 16px;">
+										<div class="current jp-current-time"><span style="float:left;margin-left: 18px;">${playing_index==index?currtime:'00:00'}</span>
+											<i class="jp-play" v-bind:class="(playing_index==index&&playing)?'icon-pause':'icon-play'" title="play" v-on:click="togglePlay" v-bind:data-index="index" style="float: right;margin-right: 18px;width:34px;height:38px;margin-top: 8px;border: none;cursor: pointer;"></i>
+										</div>
+
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div id="square-container" v-show="selectedmenu==1">
+			<div class="container">
+				<div class="top-tab">
+					<div class="tab-item" v-bind:class="tabindex==0?'active':''" v-on:click="switchTab(0)">My Music</div>
+					<div class="tab-item" v-bind:class="tabindex==1?'active':''" v-on:click="switchTab(1)">My Collection</div>
+				</div>
+				<div class="tab-content" v-show="tabindex==0">
+					<div class="mine-contanier">
+						<div class="container-nodata" v-if="my_musics.length==0">
+							<div class="nodata">
+								<div><i class="iconfont icon-cdcd23" style="font-size: 6rem;"></i></div>
+								<div style="color:#666666">no music uploaded</div>
+								<div style="margin-top: 12px;" v-on:click="openUpload"><button><i class="iconfont icon-cloudupload"></i><span style="margin-left: 8px;">upload</span></button></div>
+							</div>
+						</div>
+						<div v-if="my_musics.length>0" class="container">
+							<div class="music-item-container half" v-for="(mymusic,index) in my_musics">
+								<a>
+									<div class="music-item">
+										<div class="music-info">
+											<div style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;padding-left: 8px;max-width:250px;word-break:break-all;">${mymusic.audio_title}</div>
+										</div>
+										<div class="action-container">
+											<div class="action-item"><i class="iconfont icon-069delete" v-on:click="delete_my" v-bind:data-id='mymusic.audio_id'></i></div>
+											<div class="action-item"><i class="iconfont icon-modify" v-on:click="edit" v-bind:data-index='index'></i></div>
+											<div class="action-item"><i class="iconfont icon-play1" v-on:click="play" v-bind:data-index='index'></i></div>
+										</div>
+									</div>
+								</a>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+				<div class="tab-content" v-show="tabindex==1">
+
+					<div class="mine-contanier">
+						<div class="container-nodata" v-if="mycollections.length==0">
+							<div class="nodata">
+								<div><i class="iconfont icon-cdcd23" style="font-size: 6rem;"></i></div>
+								<div style="color:#666666">no music collected</div>
+								<div style="margin-top: 12px;"><button><span style="margin-left: 8px;">go square</span></button></div>
+							</div>
+						</div>
+						<div v-if="mycollections.length>0" class="container">
+							<div class="music-item-container half" v-for="(mycollection,index) in mycollections">
+								<a>
+									<div class="music-item">
+
+										<div class="music-info">
+											<div style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;padding-left: 8px;max-width:250px;word-break:break-all;">${mycollection.audio_title}</div>
+										</div>
+										<div class="action-container">
+											<div class="action-item"><i class="iconfont icon-069delete" v-bind:data-id='mycollection.audio_id' v-on:click="deletecoll"></i></div>
+											<div class="action-item"><i class="iconfont icon-modify" v-on:click="editc" v-bind:data-index='index'></i></div>
+											<div class="action-item"><i class="iconfont icon-play1" v-on:click="playcollection" v-bind:data-index='index'></i></div>
+										</div>
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+			<div class="float-button" v-on:click="openUpload">
+				<div style="display: table-cell;vertical-align: middle;">
+					<i class="iconfont icon-add"></i>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div class="bottom-nav">
+		<div class="menu-item" v-bind:class="selectedmenu==index?'active':''" v-for="(menu,index) in munus" v-on:click.stop.prevent="switch_menu(index)">
+			<div style="display: table;text-align: center;width: 60px;margin: 0 auto;height: 10vh;">
+				<div style="display: table-cell;vertical-align: middle;">
+					<div><i class="iconfont" v-bind:class="menu.icon" style="font-size: 2rem;"></i></div>
+					<div>${menu.name}</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div v-show="showedit" class="edit-outer">
+		<div class="edit-inner">
+			<div class="close"><i class="iconfont icon-guanbi" style="font-size: 2rem;cursor: pointer;" v-on:click="hide_edit"></i></div>
+			<div id="trans-audio">
+
+				<div class="slide-item">
+					<span>tempo(%)</span>
+					<div class="slider" id="slide1"></div>
+				</div>
+				<div class="slide-item">
+					<span>pitch</span>
+					<div class="slider" id="slide2"></div>
+				</div>
+				<div class="slide-item">
+					<span>rate(%)</span>
+					<div class="slider" id="slide3"></div>
+				</div>
+				<div style="text-align: center;">
+					<button class="layui-btn layui-btn-radius layui-btn-normal" v-on:click="trans">submit and play</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+<audio id="player"></audio>
+<script src="{{=URL('static', 'layui/layui.js')}}"></script>
+<script src="{{=URL('static', 'js/default_index.js')}}"></script>

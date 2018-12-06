@@ -1,0 +1,124 @@
+{{extend 'layout.html'}}
+{{block head}}
+   <title>{{='Sign Up' if request.args(0) == 'register' else 'Log In'}}</title>
+   <style>
+   	  .form-control{
+   	  	color: blue;
+   	  }
+   	  
+   	  .control-label{
+   	  	display: block;
+   	  	color: white;
+   	  }
+   	  
+   	  .lisence-container{
+   	  	height: 100vh;
+   	  	position: absolute;
+   	  	z-index: 999;
+   	  	width: 100%;
+   	  	background: black;
+   	  	top:0;
+   	  	display: none;
+   	  }
+   	  
+   	  .lisence-content{
+   	  	height: 80vh;
+   	  	overflow: auto;
+   	  	color: white;
+   	  	padding:16px;
+   	  }
+   	  
+   	  .btn-err{
+   	  	background: darkred !important;
+   	  }
+   	  
+   	  .lisence-btns{
+   	  	text-align: center;
+   	  	height: 10vh;
+   	  }
+   	  
+   	  #auth_user_remember_me__label{
+   	  	color: white;
+   	  }
+   	  
+   	  @media only screen and (min-width: 768px) {
+   	  	.col-lg-6{
+   	  		width: 50%;
+   	  		display: inline-block;
+   	  	}
+   	  	
+   	  	.col-lg-6{
+   	  		width: 50%;
+   	  		display: inline-block;
+   	  	}
+   	  	
+   	  	.col-lg-offset3{
+   	  		margin-left: 30%;
+   	  	}
+   	  }
+   </style>
+{{end}}
+<div style="background: black;padding:8px;height: 100vh;">
+	<div style="text-align: center;">
+		<img src="../../static/images/music_logo.png" style="width: 300px;"/>
+	</div>
+<div style="text-align: center;color: white;margin-bottom: 30px;">
+{{=T('Sign Up') if request.args(0) == 'register' else T('Log In') if request.args(0) == 'login' else T(request.args(0).replace('_',' ').title())}}
+</div>
+
+<div class="container" >
+    <div class="row">
+        <div id="web2py_user_form" class="col-lg-6 col-lg-offset3">
+        {{
+        if request.args(0)=='login':
+            if not 'register' in auth.settings.actions_disabled:
+                form.add_button(T('Sign Up'),URL(args='register', vars={'_next': request.vars._next} if request.vars._next else None),_class='btn btn-default')
+            pass
+            if not 'request_reset_password' in auth.settings.actions_disabled:
+                form.add_button(T('Lost Password'),URL(args='request_reset_password'),_class='btn btn-default')
+            pass
+        pass
+        =form
+        }}
+        </div>
+    </div>
+</div>
+</div>
+<div class="lisence-container">
+	<div style="height: 10vh;text-align: center;color: white;line-height: 10vh;font-weight: bold;">Copyright Lisence</div>
+	<div class="lisence-content">
+       <p>1.</p>
+       <p>2.</p>	
+       <p>3.</p>	
+       <p>4.</p>	
+       <p>5.</p>	
+	</div>
+	<div class="lisence-btns">
+		<button class="btn-err" onclick="reject()">reject</button>
+		<button onclick="accept()">accept</button>
+	</div>
+</div>
+
+
+{{block page_js}}
+<script>
+	{{if request.args(0)=='register':}}
+		$('.lisence-container').show()
+	{{pass}}
+	function reject(){
+		window.history.back();		
+	}
+	
+	function accept(){
+		$('.lisence-container').hide()
+	}
+</script>
+<script>
+    jQuery("#web2py_user_form input:visible:enabled:first").focus();
+{{if request.args(0)=='register':}}
+    web2py_validate_entropy(jQuery('#auth_user_password'),100);
+{{elif request.args(0)=='change_password':}}
+    web2py_validate_entropy(jQuery('#no_table_new_password'),100);
+{{pass}}
+</script>
+{{end page_js}}
