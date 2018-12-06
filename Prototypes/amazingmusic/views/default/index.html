@@ -1,0 +1,16 @@
+{{extend 'layout.html'}}
+
+{{block head}}
+<title>Amazing Music</title>
+{{end}}
+
+<div class="main_content">
+    <div class="content-container">
+        <img src="{{=URL('static', 'images/music_logo.png')}}" class="logo">
+        <div style="margin-top:100px;">
+            <a href="/amazingmusic/default/user/register">Sign Up</a>
+            <a style="margin-left:80px;" href="/amazingmusic/default/user/login?_next=/amazingmusic/default/music">Log In</a>
+        </div>
+    </div>
+
+</div>
