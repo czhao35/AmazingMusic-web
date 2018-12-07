@@ -246,8 +246,6 @@
 							<div class="nodata">
 								<div><i class="iconfont icon-cdcd23" style="font-size: 6rem;"></i></div>
 								<div style="color:#666666">no music uploaded</div>
-								<div style="margin-top: 12px;" v-on:click="openUpload"><button class="layui-btn layui-btn-radius layui-btn-normal"><i
-									class="iconfont icon-cloudupload"></i><span style="margin-left: 8px;">upload</span></button></div>
 							</div>
 						</div>
 						<div v-if="my_musics.length>0" class="container">
@@ -305,11 +303,10 @@
 				</div>
 
 			</div>
-			<div class="float-button" v-on:click="openUpload">
-				<div style="display: table-cell;vertical-align: middle;">
-					<i class="iconfont icon-add"></i>
-				</div>
-			</div>
+			<button class="float-button" v-on:click="openUpload">
+					Upload
+					<i class="iconfont icon-cloudupload"></i>
+			</button>
 		</div>
 
 	</div>
