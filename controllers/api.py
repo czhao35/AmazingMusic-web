@@ -3,6 +3,30 @@ import time
 
 
 # Here go your api methods.
+def search_music():
+    sql = "select id,audio_author,audio_title,audio_file,update_time from audio_info where audio_title like '%"+request.vars.key+"%' and delete_tag=0 order by update_time desc"
+    audios = db.executesql(sql)
+    data = []
+    if auth==None:
+        data.append({
+                "audio_id": audio[0],
+                "audio_author": audio[1],
+                "audio_title": audio[2],
+                "audio_url": '/amazingmusic/default/download/' + audio[3],
+                "create_time": audio[4]
+            })
+
+    else:
+        for audio in audios:
+            data.append({
+                "audio_id": audio[0],
+                "audio_author": audio[1],
+                "audio_title": audio[2],
+                "audio_url": '/amazingmusic/default/download/' + audio[3],
+                "create_time": audio[4]
+            })
+    return response.json(dict(code=0, data=data))
+    
 def load_music():
     sql = "select id,audio_author,audio_title,audio_file,update_time from audio_info where  delete_tag=0 order by update_time desc"
     audios = db.executesql(sql)

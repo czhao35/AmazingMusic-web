@@ -1,16 +1,17 @@
 {{extend 'layout.html'}}
 {{block head}}
+	<!-- 1. Sign up and log in page UI code (the code is used to draw the UI of Sign up and log in) -->
    <title>{{='Sign Up' if request.args(0) == 'register' else 'Log In'}}</title>
    <style>
    	  .form-control{
-   	  	color: blue;
+   	  	color: black;
    	  }
-   	  
+
    	  .control-label{
    	  	display: block;
    	  	color: white;
    	  }
-   	  
+
    	  .lisence-container{
    	  	height: 100vh;
    	  	position: absolute;
@@ -20,52 +21,57 @@
    	  	top:0;
    	  	display: none;
    	  }
-   	  
+
    	  .lisence-content{
    	  	height: 80vh;
    	  	overflow: auto;
    	  	color: white;
    	  	padding:16px;
    	  }
-   	  
+
    	  .btn-err{
    	  	background: darkred !important;
    	  }
-   	  
+
    	  .lisence-btns{
    	  	text-align: center;
    	  	height: 10vh;
    	  }
-   	  
+
    	  #auth_user_remember_me__label{
    	  	color: white;
    	  }
-   	  
+
    	  @media only screen and (min-width: 768px) {
    	  	.col-lg-6{
    	  		width: 50%;
    	  		display: inline-block;
    	  	}
-   	  	
+
    	  	.col-lg-6{
    	  		width: 50%;
    	  		display: inline-block;
    	  	}
-   	  	
+
    	  	.col-lg-offset3{
    	  		margin-left: 30%;
    	  	}
    	  }
    </style>
 {{end}}
-<div style="background: black;padding:8px;height: 100vh;">
+<!-- 2. The background code of the login page -->
+<div style="background: url('../../static/images/Spotlight.jpg'); background-repeat: no-repeat;
+  padding:8px; height: 100vh;
+  background-size: cover;">
 	<div style="text-align: center;">
+	<!-- 3. log in page logo code -->
 		<img src="../../static/images/music_logo.png" style="width: 300px;"/>
 	</div>
+	<!-- 4. Draw the things like email input container, password input container in the login page-->
 <div style="text-align: center;color: white;margin-bottom: 30px;">
 {{=T('Sign Up') if request.args(0) == 'register' else T('Log In') if request.args(0) == 'login' else T(request.args(0).replace('_',' ').title())}}
 </div>
-
+<!-- 4. Draw the things like email input container, password input container in the sign up page-->
 <div class="container" >
     <div class="row">
         <div id="web2py_user_form" class="col-lg-6 col-lg-offset3">
@@ -84,14 +90,25 @@
     </div>
 </div>
 </div>
-<div class="lisence-container">
+<!-- 6. copyright page UI -->
+<div class="lisence-container" style="background: url('../../static/images/Spotlight.jpg'); background-repeat: no-repeat;
+  padding:8px; height: 100vh;
+  background-size: cover;">
 	<div style="height: 10vh;text-align: center;color: white;line-height: 10vh;font-weight: bold;">Copyright Lisence</div>
 	<div class="lisence-content">
-       <p>1.</p>
-       <p>2.</p>	
-       <p>3.</p>	
-       <p>4.</p>	
-       <p>5.</p>	
+       <p>The license granted to you does not authorize or permit any use of the Amazing Music not expressly set forth in this License Agreement. The terms of this License Agreement are limited to the use of the Amazing Music in synchronization with your production only as with the terms of the single Standard License selected by you and subject in all respects to the restrictions set forth therein and without limiting the foregoing, does not include the following rights and you may not use the Amazing Music: </p>
+       <p>(1) to advertise goods or services in any means or by any manner now or hereafter known. </p>
+       <p>(2) for any unlawful activity or in any manner or any means which may be deemed by a reasonable person to be detrimental to Amazing Music and/or to the copyright owner(s) of the Musical Work.</p>
+       <p>(3) on phonorecords. </p>
+       <p>(4) on any premium streaming service, whether interactive or on demand and/or</p>
+	   <p>(5) in any manner not specifically enumerated herein or with respect to which no grant of rights is specified. </p>
+	   <p>(6) alter the fundamental character of the music or the lyrics of the Amazing Music.</p>
+	   <p>(7) parody the music or the lyrics of the Musical Work. </p>
+	   <p>(8) make foreign adaptations and/or translations of the music and/or lyrics of the Amazing Music.</p>
+	   <p>(9) use the story of the Amazing Music or dramatically depict the Amazing Music.</p>
+	   <p>(10) use the title of the Amazing Music or the name of the artist and/or songwriter.</p>
+	   <p>(11) alter, edit or remix the Musical Work. </p>
+	   <p>This license shall not transfer to you nor shall you assert any ownership interest whatsoever (including, but not limited to, copyright, trademark, and/or goodwill) in or to the Amazing Music. In no event shall the Amazing Music be featured separately from the approved use, or be offered or provided in or as a non-linear, downloadable, or alterable file. You expressly acknowledge and agree that no right of public performance of the Amazing Music is granted under this License Agreement and you shall be responsible for securing all necessary public performance licenses and paying all public performance fees. Amazing Music reserves all rights not expressly granted under this License Agreement.</p>
 	</div>
 	<div class="lisence-btns">
 		<button class="btn-err" onclick="reject()">reject</button>
@@ -99,21 +116,22 @@
 	</div>
 </div>
 
-
+<!-- 7. used to go to the copyright page -->
 {{block page_js}}
 <script>
 	{{if request.args(0)=='register':}}
 		$('.lisence-container').show()
 	{{pass}}
 	function reject(){
-		window.history.back();		
+		window.history.back();
 	}
-	
+
 	function accept(){
 		$('.lisence-container').hide()
 	}
 </script>
 <script>
+<!-- 7. upload user password and user name to the server (use jQuery) -->
     jQuery("#web2py_user_form input:visible:enabled:first").focus();
 {{if request.args(0)=='register':}}
     web2py_validate_entropy(jQuery('#auth_user_password'),100);

@@ -39,9 +39,7 @@ var app = function() {
 	self.play_audio = function(url) {
 
 	}
-
 	self.load_audio_info = function() {
-
 		$.get(load_audio_info_url, {
 				id: self.id
 			},
@@ -73,11 +71,6 @@ var app = function() {
 
 var APP = null;
 
-// No, this would evaluate it too soon.
-// var APP = app();
-
-// This will make everything accessible from the js console;
-// for instance, self.x above would be accessible as APP.x
 jQuery(function() {
 	APP = app();
 });

@@ -79,7 +79,7 @@ input:invalid, input.error, textarea:invalid, textarea.error {background: #ffdfd
 .container img, .container video {max-width:100%}
 .max900 {margin-left:auto; margin-right:auto}
 
-@media all and (min-width:800px) {
+@media all and (min-width:950px) {
   .max900 {max-width:900px}
   .quarter {width:25%; margin-right:-5px}
   .half {width:50%; margin-right:-10px}
@@ -87,7 +87,7 @@ input:invalid, input.error, textarea:invalid, textarea.error {background: #ffdfd
   .twothirds {width:66.66%; margin-right:-13.33px}
   .threequarters {width:75%; margin-right:-15px}
 }
-@media all and (min-width:600px) and (max-width:799px) {
+@media all and (min-width:600px) and (max-width:949px) {
   .quarter.compressible {width:25%; margin-right:-5px}
   .half.compressible {width:50%; margin-right:-10px}
   .threequarters.compressible {width:75%; margin-right:-15px}
@@ -96,7 +96,7 @@ input:invalid, input.error, textarea:invalid, textarea.error {background: #ffdfd
   .twothirds {width:66.66%; margin-right:-13.33px}
   label.quarter:not(.compressible).right, label.half:not(.compressible).right, label.threequarters:not(.compressible).right   {float:left; text-align:left}
 }
-@media all and (max-width:599px) {  
+@media all and (max-width:749px) {
   .quarter:not(.compressible), .half:not(.compressible), .third:not(.compressible), .twothirds:not(.compressible), .threequarters:not(.compressible) {width:100%;}
   label.quarter:not(.compressible).right, label.half:not(.compressible).right, label.threequarters:not(.compressible).right,
   label.third:not(.compressible).right, label.twothirds:not(.compressible).right   {float:left; text-align:left}
@@ -195,7 +195,7 @@ input:invalid, input.error, textarea:invalid, textarea.error {background: #ffdfd
 .menu.dark>li>ul>li:first-child:before{border-bottom-color:#111111}
 
 @media all and (max-width:599px) {
-  header .menu li, header .menu ul {width: 100%}  
+  header .menu li, header .menu ul {width: 100%}
   header .menu.right {float:left; text-align:left}
   header .menu ul ul {top:2.5em; left:-1px}
 }
@@ -214,7 +214,7 @@ input:invalid, input.error, textarea:invalid, textarea.error {background: #ffdfd
     left:0;
     top:0;
     height:100vh;
-    box-shadow:0 0 10px #666;    
+    box-shadow:0 0 10px #666;
     width:220px;
     padding:0 10px 0 10px;
     margin-left:-210px;

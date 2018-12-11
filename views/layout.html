@@ -14,18 +14,13 @@
 	</head>
 
 	<body style="background:#FAFAFA ;">
-		{{if response.flash:}}
-		<div class="w2p_flash">
-			{{=response.flash}}
-		</div>
-		{{pass}}
 
 		<main>
 			{{include}}
 		</main>
 
 	</body>
-	
+
 	<script src="{{=URL('static','js/marked.min.js')}}"></script>
 	<script src="{{=URL('static','js/vue.min.js')}}"></script>
 	{{block bottomjs}}{{end}}

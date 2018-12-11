@@ -107,7 +107,7 @@ main {
 .left-menu {
 	width: 80px;
 	height: 100vh;
-	background: #C9CABB;
+	background: rgb(60, 76, 89);
 	text-align: center;
 }
 
@@ -119,12 +119,12 @@ main {
 
 .menu-item {
 	cursor: pointer;
-	color: #001F3F;
+	color: white;
 	padding: 8px 0;
 }
 
 .menu-item.active {
-	color: #DE8100;
+	color: rgb(2, 71, 139);
 	background: white;
 }
 
@@ -141,13 +141,20 @@ main {
 
 .music-name {
 	font-size: 1.6rem;
-	color: #d2553d;
+	color: black;
 	margin-bottom: 18px;
+	height: 85px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: normal;
 }
 
 .face-info {
 	padding-left: 10px;
 	font-size: 0.9rem;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
 }
 
 .info-lable {
@@ -155,7 +162,7 @@ main {
 }
 
 .info-value {
-	float: right;
+	float: left;
 }
 
 .mine-contanier {
@@ -208,7 +215,7 @@ main {
 }
 
 .music-item-container a .music-item {
-	background: #EAEAEA;
+	background: #bdbdbd;
 	margin-bottom: 8px;
 }
 
@@ -363,7 +370,7 @@ main {
 }
 
 .form-group input[type=submit]{
-	
+
 }
 
 .layui-layer-iframe{
@@ -395,7 +402,7 @@ main {
 		position: absolute;
 		bottom: 0;
 		border-top:1px solid gainsboro;
-		background:#EAEAEA;
+		background:rgb(60, 76, 89);
 	}
 	.inner-frame {
 		width: 100%;
@@ -422,4 +429,3 @@ main {
 	.music-item {
 		padding: 0;
 	}
-}

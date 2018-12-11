@@ -6,10 +6,6 @@
 #       'date','time','datetime','blob','upload', 'reference TABLENAME'
 # There is an implicit 'id integer autoincrement' field
 # Consult manual for more options, validators, etc.
-
-
-
-
 # after defining tables, uncomment below to enable auditing
 # auth.enable_record_versioning(db)
 
@@ -31,11 +27,3 @@ db.define_table('audio_info',
                 Field('delete_tag', 'integer', default=0),
                 )
 
-                
-db.define_table('audio_collection',
-                Field('user_email'), # The user who thumbed, easier to just write the email here.
-                Field('audio_id', 'reference audio_info'), # The thumbed post
-                Field('update_time','datetime', default=get_current_time()), 
-                Field('delete_tag', 'integer', default=0)
-                )
-db.executesql('CREATE UNIQUE INDEX IF NOT EXISTS  collection on  audio_collection(`user_email`, `audio_id`);')

@@ -89,16 +89,7 @@ var app = function() {
 
 	}
 
-	self.playcollection = function(e) {
-		var ds = e.target.dataset;
-		var index = ds.index;
-		self.vue.playlist.unshift(self.vue.mycollections[index]);
-		self.vue.playing_index = 0;
-		var url = window.location.protocol + "//" + window.location.host + self.vue.mycollections[index].audio_url;
-		self.audio.src = url;
-		self.audio.load(url)
-		self.audio.play();
-	}
+
 
 	self.hide_edit = function() {
 		self.vue.showedit = false;
@@ -123,12 +114,6 @@ var app = function() {
 		self.show_edit();
 	}
 
-	self.editc = function(e) {
-		var ds = e.target.dataset;
-		var index = ds.index;
-		self.id = self.vue.mycollections[index].audio_id;
-		self.show_edit();
-	}
 
 	self.trans = function(e) {
 		console.log("edit")
@@ -153,43 +138,18 @@ var app = function() {
 				title: "upload file",
 				area: ['400px', '300px'],
 				type: 2,
-				content: "./upload"
+				content: "./upload",
+				success: function(layero, index) {
+					var body = layer.getChildFrame('body', index);
+					body.css('padding',"16px");
+					body.find('#audio_info_audio_file').attr("accept",".wav,.mp3,.m4a")
+				}
 			});
 		});
 	}
 
-	self.deletecoll = function(e) {
-		var ds = e.target.dataset;
-		var id = ds.id;
-		$.get(toggle_collect_url, {
-				audio_id: id,
-				collected: 1
-			},
-			function(res) {
-				if(res.code == 0) {
-
-					self.vue.mycollections = self.vue.mycollections.filter(function(elem) {
-						return elem.audio_id != id
-					})
-
-				}
-			});
-	}
-
-	self.loadCollection = function() {
-		$.get(load_collection_url,
-			function(res) {
-				if(res.code == 0) {
-					var data = res.data;
-					self.vue.mycollections = data;
-				}
-			});
-	}
-
-	self.switchTab = function(tab) {
-		self.vue.tabindex = parseInt(tab);
-	}
-
+	
+	
 	self.togglePlay = function(e) {
 		var index = e.target.dataset.index;
 		if(index != self.vue.playing_index) {
@@ -205,7 +165,7 @@ var app = function() {
 			if(self.timer) {
 				window.clearInterval(self.timer);
 			}
-			self.timer = setInterval(function() {				
+			self.timer = setInterval(function() {
 				var c = parseInt(self.audio.currentTime);
 				var m = parseInt(c / 60);
 				var s = c % 60;
@@ -213,7 +173,7 @@ var app = function() {
 				if(currTotal > 0) {
 					self.vue.currProgress = c * 100 / currTotal;
 				}
-				if(currTotal-c<1 && currTotal > 0) {
+				if(currTotal - c < 1 && currTotal > 0) {
 					window.clearInterval(self.timer);
 					self.timer = null;
 				}
@@ -239,34 +199,32 @@ var app = function() {
 			});
 	}
 
-	self.toggleCollect = function(e) {
-		var collected = e.target.dataset.collected;
-		var id = e.target.dataset.id;
-		$.get(toggle_collect_url, {
-				collected: collected,
-				audio_id: id
-			},
-			function(res) {
-				if(res.code == 0) {
-					var musics = self.vue.musics;
-					for(var i in musics) {
-						var music = musics[i];
-						if(musics[i].audio_id == id) {
-							music.collected = (collected == 0 ? 1 : 0);
-							self.vue.musics.splice(parseInt(i), 1, music)
-							break;
-						}
-					}
-
-				}
-			});
-	}
+	
 
 	self.seekprogress = function(e) {
-		console.log(e);
 		if(self.vue.playing) {
 			self.audio.currentTime = (parseInt(e.offsetX * (self.audio.duration) / $('.progress').width()))
 		}
+	}
+
+	self.search = function(e) {
+		var keyw = e.target.value;
+		if(keyw.length > 0) {
+			$.get(search_music_url, {
+				key: keyw
+			}, function(res) {
+				if(res.code == 0) {
+					var data = res.data;
+					self.vue.musics = data;
+				}
+			});
+		} else {
+			self.loadMusic();
+		}
+	}
+	
+	self.showPlaylist=function(){
+		
 	}
 
 	// Complete as needed.
@@ -284,12 +242,10 @@ var app = function() {
 			}],
 			selectedmenu: 0,
 			my_musics: [],
-			mycollections: [],
 			playlist: [],
 			curr_vol: 80,
 			playing_index: -1,
 			playing_src: "",
-			tabindex: 0,
 			musics: [],
 			curr_vol: 80,
 			currtime: "00:00",
@@ -305,18 +261,15 @@ var app = function() {
 			loadMyMusic: self.loadMyMusic,
 			delete_my: self.delete_my,
 			play: self.play,
-			playcollection: self.playcollection,
 			edit: self.edit,
 			editmy: self.editmy,
 			openUpload: self.openUpload,
-			editc: self.editc,
-			deletecoll: self.deletecoll,
 			switchTab: self.switchTab,
 			togglePlay: self.togglePlay,
-			toggleCollect: self.toggleCollect,
 			trans: self.trans,
 			hide_edit: self.hide_edit,
-			seekprogress: self.seekprogress
+			seekprogress: self.seekprogress,
+			search: self.search
 		}
 	});
 
