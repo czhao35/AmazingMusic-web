@@ -34,7 +34,7 @@ Setting->system-> advanced system setting->Environment Variables
 3.	Some notice:
 (1)	Website address: https://47.106.162.152:8000/amazingmusic/default/ 
 
-(2)	We didn’t show the collection in the presentation since it has a bug there (the “heart” icon cannot keep the clicking state, we had a discussion about that, ChongWei Zhao had decided to delete it since I didn’t want to put a feature which was buggy in the website, but other team members insisted on having this feature, so I added it back.)
+(2)	We didn’t show the collection in the presentation since it has a bug there (the “heart” icon cannot keep the clicking state, we had a discussion about that, ChongWei Zhao had decided to delete it since he didn’t want to put a feature which was buggy in the website, but other team members insisted on having this feature, so he added it back.)
 
 
 4.	General conclusion
