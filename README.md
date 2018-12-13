@@ -36,6 +36,8 @@ Setting->system-> advanced system setting->Environment Variables
 
 (2)	We didn’t show the collection in the presentation since it has a bug there (the “heart” icon cannot keep the clicking state, we had a discussion about that, ChongWei Zhao had decided to delete it since he didn’t want to put a feature which was buggy in the website, but other team members insisted on having this feature, so he added it back.)
 
+(3) The web application may not work for some browsers. When I used "IE" browser, I can not go to the main page, but when I used "Chrome" to try it again, it worked.
+
 
 4.	General conclusion
 Front End and User Interface- vue.js, html, layui,
