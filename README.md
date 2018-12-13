@@ -53,6 +53,7 @@ Database and File Storage- Alibaba Cloud
 (6)	https://mdipierro.github.io/stupid.css/index.html
 (7)	https://www.surina.net/soundtouch/soundstretch.html
 (8)	http://www.iconfont.cn/
+(9) https://github.com/leemanwhelan/AmazingMusic
 
 6.	Bug Report
 1. If you click the "heart" icon for the collection, the "heart icon" cannot keep staying "black"
@@ -60,3 +61,7 @@ Database and File Storage- Alibaba Cloud
 3. After you edit a music, you (the users) will not see any music file appear in any place in the website,
 only the developers or Website manager can see the edited files
 (The edited files are saved in the "audio\temp" folder)
+
+7. The relationship with the AmazingMusic in UCSC CS115 Summer 2018
+1. The idea of AmazingMusic-web come from the AmazingMusic in UCSC CS115 Summer 2018
+2. Amazing Music-web is a website which allow its users to play, edit and share music, the users can upload their music in anywhere with either moblie or computer devices(computer and Android cell phone). Amzing Music is a windows app which also can allow its users to play, edit and share music but the users can not upload their their music in anywhere with any devices. The UI of Amazing Music-web is better than the Amazing Music also.
